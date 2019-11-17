@@ -1,25 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+import Home from './Home';
+import Register from './Register';
+import Login from './Login';
 
-export default App;
+export default () => (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/register" exact component={Register} />
+      <Route path="/login" exact component={Login} />
+    </Switch>
+  </BrowserRouter>
+);
