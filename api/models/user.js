@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 export default (sequelize, DataTypes) => {
     const User = sequelize.define('users', {
         username: {
@@ -25,7 +27,20 @@ export default (sequelize, DataTypes) => {
             },
         },
         password: DataTypes.STRING,
-    });
+    },
+    {
+        hooks: {
+            afterValidate: async (user) => {
+                const hashedPassword = await bcrypt.hash(user.password, 12);
+
+                return {
+                    ...user,
+                    password: hashedPassword,
+                }
+            }
+        }
+    }
+    );
 
     User.associate = models => {
         User.belongsToMany(models.Team, {
