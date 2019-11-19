@@ -30,7 +30,7 @@ export default {
             } catch (err) {
                 return {
                     ok: false,
-                    errors: formatErrors(err, models),
+                    errors: err,
                 };
             }
         },

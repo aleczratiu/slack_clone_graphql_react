@@ -39,7 +39,14 @@ const graphqlEndpoint = '/graphql';
 //   }),
 // );
 
-const server = new ApolloServer({ typeDefs, resolvers, context: { models, user: { id: 1 }, SECRET, SECRET2 } });
+const server = new ApolloServer({ typeDefs, resolvers,
+    context: ({ req }) => ({
+        models,
+        SECRET,
+        SECRET2,
+        user: req.user,
+    }),
+});
 server.applyMiddleware({ app });
 
 models.sequelize.sync();
